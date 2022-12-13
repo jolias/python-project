@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    body{
+        background-color: #cef0ad;
+    }
+    h1{
+        text-align: center;
+    }
+    form{
+        position: absolute;
+        align-items: center;
+        margin-left: 40%;
+    }
+    input{
+        border-radius: 8px;
+    }
+    .file1{
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+    width: 100%;
+    height: 10%;
+    }
+    .file{
+    border-bottom: 1px solid #e3e3e3;
+    width: 100%;
+    height: 10%;
+    }
+    #lista{
+    width:90%;
+ 
+    top: 20%;
+    left: 5%;
+    color: white;
+    text-decoration: none;
+    }
+    .panel{
+    background-color:  #36769a;
+    }
+
+    .panel-body{
+    background-color: #ddd;
+    }
+    .panel-footer{
+    background-color:  #ddd;
+    }
+  a {
+    color: white;
+    text-decoration: none;
+}
+</style>
+
+<body>
+    <h1>chat de Python</h1>
+
+    <form>
+        <div class="panel-group" id="lista">
+            <a data-toggle="collapse" href="#collapse1"> <div class="panel"> 
+                <div class="panel-heading">
+                    <h4 class="panel-title ">
+                        CONTATOS
+                    </h4>
+                </div></a>
+               <div class="file1">
+                <span >&#128102</span>
+                <span class="filetext">Francisquinho</span>
+                <span class="filetext2">Há 46 minutos</span>
+            </div>
+
+            <div class="file">
+                <span>&#128104</span>
+                <span class="filetext">Seu Adamastor</span>
+                <span class="filetext2"> Há 2 horas</span>
+            </div>
+
+            <div class="file">
+                <span >&#128103</span>
+                <span class="filetext">Chiquinha</span>
+                <span class="filetext2">Há 3 horas</span>
+            </div>
+
+             <div class="file">
+                <span >&#128105</span>
+                <span class="filetext">Maria Gasolina</span>
+                <span class="filetext2">Há 8 minutos</span>
+            </div>
+
+            <div class="file">
+                <span >&#128110</span>
+                <span class="filetext">Danieal De Andrade Varela</span>
+                <span class="filetext2">ONLINE</span>
+            </div>
+            </div>
+        </div>
+        <input name="msg">
+        <button type="button">&#9993</button>
+    </form>
+    
+    <div class="display">
+
+        
+    </div>
+
+    <script>
+        const display = document.querySelector(".display")
+        const form = document.querySelector("form")
+
+        var ws = new WebSocket('ws://127.0.0.1:8080')
+
+        ws.addEventListener("message", ev => {
+            const data = document.createElement("div")
+            data.innerHTML = ev.data
+            display.append(data)
+        })
+
+
+        form.addEventListener("submit", ev => {
+            ev.preventDefault()
+            ws.send(form.msg.value)
+            form.msg.value = ""
+        })
+
+    </script>
+</body>
+</html>
